@@ -59,16 +59,16 @@ class Navigation implements Hookable {
             'theme_location'  => 'footer',
             'container'       => 'nav',
             'container_class' => 'footer-navigation',
-            'menu_class'      => 'footer-menu flex flex-wrap justify-center md:justify-end space-x-6',
+            'menu_class'      => 'footer-menu flex flex-wrap space-x-6',
             'fallback_cb'     => false,
             'depth'           => 1,
         ]);
     }
 
     /**
-     * Helper: Render the Social Links Menu (e.g., in footer)
+     * Helper: Render the Social Links Menu (same pattern as footer nav)
      */
-    public static function display_social_menu(): void {
+    public static function display_social_menu( string $extra_classes = '' ): void {
         if ( ! has_nav_menu( 'social' ) ) {
             return;
         }
@@ -77,11 +77,9 @@ class Navigation implements Hookable {
             'theme_location'  => 'social',
             'container'       => 'nav',
             'container_class' => 'social-navigation',
-            'menu_class'      => 'social-links flex space-x-4',
-            'link_before'     => '<span class="sr-only">',
-            'link_after'      => '</span>',
-            'depth'           => 1,
+            'menu_class'      => trim('social-menu flex flex-wrap justify-center md:justify-end space-x-6 ' . $extra_classes),
             'fallback_cb'     => false,
+            'depth'           => 1,
         ]);
     }
 }
