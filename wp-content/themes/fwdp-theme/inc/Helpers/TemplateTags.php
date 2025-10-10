@@ -1,51 +1,32 @@
 <?php
-/**
- * Template Tags
- *
- * Helper class for commonly used theme functions
- *
- * @package FWDP
- */
-
 namespace FWDP\Helpers;
-
-use FWDP\Core\Customizer;
 
 class TemplateTags {
 
-	/**
-	 * Get the current primary color from the Customizer
-	 *
-	 * @return string HEX color value
-	 */
-	public static function get_primary_color() {
-		return Customizer::get_primary_color();
-	}
+    /**
+     * Get the primary color defined in the Customizer.
+     */
+    public static function get_primary_color(): string {
+        // Fetch color from Customizer setting
+        $primary_color = get_theme_mod('primary_color', '#1e40af');
 
-	/**
-	 * Example: Get site logo or fallback to title
-	 *
-	 * @return string HTML markup
-	 */
-	public static function get_logo() {
-		if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
-			return get_custom_logo();
-		}
+        // Fallback to default if somehow invalid
+        if (empty($primary_color) || !preg_match('/^#[a-fA-F0-9]{6}$/', $primary_color)) {
+            $primary_color = '#1e40af';
+        }
 
-		return sprintf(
-			'<a href="%1$s" class="text-xl font-bold">%2$s</a>',
-			esc_url( home_url( '/' ) ),
-			esc_html( get_bloginfo( 'name' ) )
-		);
-	}
+        return $primary_color;
+    }
 
-	/**
-	 * Example: Display site description/tagline
-	 *
-	 * @return string
-	 */
-	public static function get_tagline() {
-		$description = get_bloginfo( 'description', 'display' );
-		return $description ? esc_html( $description ) : '';
-	}
+    /**
+     * Example: Returns site title wrapped in a semantic tag.
+     */
+    public static function site_title(): string {
+        return sprintf(
+            '<a href="%1$s" class="text-xl font-semibold">%2$s</a>',
+            esc_url(home_url('/')),
+            esc_html(get_bloginfo('name'))
+        );
+    }
+
 }

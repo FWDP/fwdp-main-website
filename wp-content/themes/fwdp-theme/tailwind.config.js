@@ -1,7 +1,7 @@
-export const darkMode = 'media';
 export const content = [
-    './**/*.php',
-    './assets/js/**/*.js',
+    "./*.php",
+    "./**/*.php",
+    "./assets/src/js/**/*.js"
 ];
 export const theme = {
     extend: {},

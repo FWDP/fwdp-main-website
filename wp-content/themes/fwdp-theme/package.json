@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "scripts": {
     "build:css": "npx tailwindcss -i ./assets/src/css/tailwind.css -o ./assets/dist/main.css --minify",
-    "build:js": "npx esbuild ./assets/src/js/main.js --bundle --minify --outfile=./assets/dist/main.js",
+    "build:js": "npx esbuild ./assets/src/js/main.js --bundle --minify --outfile=./assets/dist/main.js && npx esbuild ./assets/src/js/customizer.js --bundle --minify --outfile=./assets/dist/customizer.js",
     "build": "npm run build:css && npm run build:js",
-    "watch": "npx tailwindcss -i ./assets/src/css/tailwind.css -o ./assets/dist/main.css --watch & npx esbuild ./assets/src/js/main.js --bundle --outfile=./assets/dist/main.js --watch"
+    "watch": "npx tailwindcss -i ./assets/src/css/tailwind.css -o ./assets/dist/main.css --watch & npx esbuild ./assets/src/js/main.js --bundle --outfile=./assets/dist/main.js --watch & npx esbuild ./assets/src/js/customizer.js --bundle --outfile=./assets/dist/customizer.js --watch"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.0",
     "postcss": "^8.4.0",
-    "tailwindcss": "^3.4.0"
+    "tailwindcss": "^3.4.0",
+    "esbuild": "^0.19.0"
   }
 }
