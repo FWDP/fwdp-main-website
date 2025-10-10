@@ -4,28 +4,37 @@ use FWDP\Helpers\TemplateTags;
 
 $primary_color = TemplateTags::get_primary_color();
 ?>
-<footer 
-    class="border-t border-gray-200 dark:border-gray-700 mt-10 transition-colors duration-300" 
-    style="background-color: <?php echo esc_attr($primary_color); ?>1A;"> <!-- Adds subtle tint of your primary color (10% opacity) -->
-    <div class="container mx-auto p-6 flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-4 md:mb-0">
-            <p class="text-gray-700 dark:text-gray-300">
-                &copy; <?php echo date('Y'); ?> 
-                <span class="font-semibold" style="color: <?php echo esc_attr($primary_color); ?>;">
-                    <?php bloginfo('name'); ?>
-                </span>
-            </p>
+    </main>
+
+    <footer 
+        class="mt-10 text-white transition-colors duration-300"
+        style="background-color: <?php echo esc_attr($primary_color); ?>;"
+    >
+        <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
+
+            <!-- Left: Copyright -->
+            <div class="text-center md:text-left">
+                <p class="text-sm opacity-80">
+                    &copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.
+                </p>
+            </div>
+
+            <!-- Right: Footer Navigation -->
+            <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+                <nav class="flex justify-center md:justify-end space-x-4 text-white hover:text-gray-200 transition-colors">
+                    <?php Navigation::display_footer_menu(); ?>
+                </nav>
+
+                <!-- Social Links Menu -->
+                <?php if (has_nav_menu('social')) : ?>
+                    <nav class="flex justify-center md:justify-end space-x-4">
+                        <?php Navigation::display_social_menu(); ?>
+                    </nav>
+                <?php endif; ?>
+            </div>
         </div>
 
-        <nav class="flex space-x-4">
-            <?php Navigation::render_menu(
-                'footer',
-                'flex space-x-4 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors'
-            ); ?>
-        </nav>
-    </div>
-
-    <?php wp_footer(); ?>
-</footer>
+        <?php wp_footer(); ?>
+    </footer>
 </body>
 </html>

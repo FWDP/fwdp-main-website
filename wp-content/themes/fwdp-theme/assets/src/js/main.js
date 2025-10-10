@@ -1,45 +1,78 @@
 /**
  * FWDP Theme - Main JS
  * ---------------------------------------
- * Handles interactivity, customizer live preview, and responsive UI.
- * Uses TailwindCSS and simple DOM utilities.
+ * Handles interactivity, Customizer live preview, and responsive UI.
+ * Built for TailwindCSS and OOP-based WordPress theme structure.
  */
 
 class FWDPTheme {
   constructor() {
+    this.toggle = null;
+    this.menu = null;
+    this.darkModeMedia = window.matchMedia('(prefers-color-scheme: dark)');
     this.init();
   }
 
   init() {
     document.addEventListener('DOMContentLoaded', () => {
-      console.log('%cFWDP Theme Loaded', 'color: #1e40af; font-weight: bold;');
+      console.log('%cFWDP Theme Loaded', 'color: #2563eb; font-weight: bold;');
 
+      this.toggle = document.querySelector('[data-menu-toggle]');
+      this.menu = document.querySelector('[data-menu]');
+      
       this.handleMenuToggle();
       this.observeThemeColor();
+      this.handleDarkModePreference();
     });
   }
 
+  /**
+   * Handles responsive mobile menu toggle
+   */
   handleMenuToggle() {
-    const toggle = document.querySelector('[data-menu-toggle]');
-    const menu = document.querySelector('[data-menu]');
+    if (!this.toggle || !this.menu) return;
 
-    if (!toggle || !menu) return;
+    this.toggle.addEventListener('click', () => {
+      const isHidden = this.menu.classList.contains('hidden');
+      this.menu.classList.toggle('hidden', !isHidden);
+      this.menu.classList.toggle('flex', isHidden);
 
-    toggle.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
-      menu.classList.toggle('flex');
+      // Add Tailwind transition animation
+      this.menu.classList.add('transition-all', 'duration-300');
     });
   }
 
+  /**
+   * Observes Customizer live changes to primary color
+   */
   observeThemeColor() {
-    // Example: dynamic update if Customizer changes the primary color (AJAX / wp.customize)
     if (typeof wp !== 'undefined' && wp.customize) {
       wp.customize('primary_color', (value) => {
         value.bind((newColor) => {
           document.documentElement.style.setProperty('--primary-color', newColor);
+          document.querySelectorAll('[data-primary-bg]').forEach((el) => {
+            el.style.backgroundColor = newColor;
+          });
         });
       });
     }
+  }
+
+  /**
+   * Handles automatic dark mode detection + sync
+   */
+  handleDarkModePreference() {
+    const applyDarkMode = (isDark) => {
+      document.documentElement.classList.toggle('dark', isDark);
+    };
+
+    // Initial check
+    applyDarkMode(this.darkModeMedia.matches);
+
+    // React to changes
+    this.darkModeMedia.addEventListener('change', (e) => {
+      applyDarkMode(e.matches);
+    });
   }
 }
 
