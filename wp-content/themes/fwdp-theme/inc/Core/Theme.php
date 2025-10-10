@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Theme {
 
     /**
-     * Holds all theme components that implement Hookable
+     * Holds instantiated components that implement Hookable
      *
      * @var Hookable[]
      */
@@ -35,13 +35,16 @@ class Theme {
 
     /**
      * Bootstraps the theme by loading and registering components.
+     *
+     * Note: we perform bootstrap immediately when Theme is instantiated to
+     * avoid hook-order timing issues (so components that register their
+     * own hooks during register() run correctly).
      */
     public function __construct() {
-        // Register components on a safe hook so other plugins/themes can be loaded.
-        // We do not call register_component() directly here to avoid ordering issues.
-        add_action( 'after_setup_theme', [ $this, 'bootstrap_components' ] );
+        // Immediately bootstrap components (deterministic order)
+        $this->bootstrap_components();
 
-        // Enqueue front-end assets
+        // Enqueue front-end assets at the normal hook
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 
         // Enqueue customizer preview script when in customizer
@@ -55,48 +58,33 @@ class Theme {
     public function bootstrap_components(): void {
         foreach ( $this->component_classes as $class ) {
             if ( ! class_exists( $class ) ) {
-                // optionally log or notify: class missing
+                // class missing — skip
                 continue;
             }
 
-            // instantiate
             try {
                 $instance = new $class();
             } catch ( \Throwable $e ) {
-                // If instantiation fails for any reason, skip gracefully.
+                // instantiation failed — skip
                 continue;
             }
 
-            // Only register if it implements Hookable
             if ( $instance instanceof Hookable ) {
-                $this->register_component( $instance );
-            } else {
-                // skip non-Hookable components to avoid type errors
-                // optional: you can still call a register() method if present, but we prefer Hookable contract
-                if ( method_exists( $instance, 'register' ) ) {
-                    // best-effort: call register but do not store in $this->components
-                    try {
-                        $instance->register();
-                    } catch ( \Throwable $e ) {
-                        // ignore errors
-                    }
+                // store and call the contract method
+                $this->components[] = $instance;
+                try {
+                    $instance->register();
+                } catch ( \Throwable $e ) {
+                    // swallow errors so theme still boots
+                }
+            } elseif ( method_exists( $instance, 'register' ) ) {
+                // best-effort fallback for classes that have register() but don't implement Hookable
+                try {
+                    $instance->register();
+                } catch ( \Throwable $e ) {
+                    // ignore
                 }
             }
-        }
-    }
-
-    /**
-     * Registers a Hookable component into the theme
-     *
-     * @param Hookable $component Component instance implementing Hookable.
-     */
-    private function register_component( Hookable $component ): void {
-        $this->components[] = $component;
-        // call the component's register method (contract of Hookable)
-        try {
-            $component->register();
-        } catch ( \Throwable $e ) {
-            // swallow to avoid breaking theme boot
         }
     }
 
@@ -131,7 +119,7 @@ class Theme {
             wp_enqueue_script(
                 'fwdp-main',
                 get_template_directory_uri() . '/assets/dist/main.js',
-                [], // deps: add ['jquery'] if your scripts need it
+                [], // add dependencies if required
                 $theme_version,
                 true
             );
@@ -140,7 +128,6 @@ class Theme {
 
     /**
      * Enqueue the customizer preview script (for live preview).
-     * Expects an output at assets/dist/customizer.js or assets/js/customizer.js as fallback.
      */
     public function enqueue_customizer_preview(): void {
         $theme_version = wp_get_theme()->get( 'Version' ) ?: time();
@@ -156,7 +143,6 @@ class Theme {
                 true
             );
         } elseif ( file_exists( $customizer_src ) ) {
-            // useful during development when dist isn't built
             wp_enqueue_script(
                 'fwdp-customizer',
                 get_template_directory_uri() . '/assets/src/js/customizer.js',
@@ -168,7 +154,9 @@ class Theme {
     }
 
     /**
-     * Initializes the theme instance (helper).
+     * Initializes the theme instance — helper for bootstrap calls.
+     *
+     * Note: Prefer to call this early in functions.php (right after autoloader).
      */
     public static function init(): void {
         new self();
