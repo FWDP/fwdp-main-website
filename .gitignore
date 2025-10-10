@@ -4,6 +4,9 @@
 # Configuration
 wp-config.php
 
+# Ignore node_modules folder
+/wp-content/themes/*/node_modules/
+
 # Uploads
 /wp-content/uploads/
 
