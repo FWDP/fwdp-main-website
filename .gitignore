@@ -6,6 +6,7 @@ wp-config.php
 
 # Ignore node_modules folder
 /wp-content/themes/*/node_modules/
+/wp-content/themes/*/assets/dist/*
 
 # Uploads
 /wp-content/uploads/
