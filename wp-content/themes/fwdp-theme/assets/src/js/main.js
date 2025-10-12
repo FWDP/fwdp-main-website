@@ -23,7 +23,6 @@ class FWDPTheme {
       this.handleMenuToggle();
       this.observeThemeColor();
       this.handleDarkModePreference();
-      this.handleTabs();
     });
   }
 
