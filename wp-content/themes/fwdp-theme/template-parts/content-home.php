@@ -1,4 +1,4 @@
-<section class="bg-white ">
+<section class="bg-white">
     <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
         <blockquote><h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl ">Shaping Tomorrow with Filipino Excellence, One Code at a Time.</h1></blockquote>
         <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 ">A community built to elevate Filipino talent in web development through learning, mentorship, and collaboration.</p>
@@ -47,4 +47,4 @@
         </div> 
     </div>
 </section>
-<?php get_template_part('template-parts/service-grid'); ?>
+<?php get_template_part('template-parts/service-grid', null, ['count' => 3, 'title' => 'What We Do', 'show_button' => false]); ?>
