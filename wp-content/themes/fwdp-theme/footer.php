@@ -7,7 +7,7 @@ $primary_color = TemplateTags::get_primary_color();
     </main>
 
     <footer
-        class="mt-10 text-white transition-colors duration-300"
+        class="text-white transition-colors duration-300"
         style="background-color: <?php echo esc_attr($primary_color); ?>;"
     >
         <div class="container mx-auto px-6 py-10 flex flex-col gap-8">

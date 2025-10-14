@@ -50,4 +50,4 @@ $primary_color = TemplateTags::get_primary_color();
     </nav>
 </header>
 
-<main class="w-full px-4 py-8">
+<main class="w-full">
