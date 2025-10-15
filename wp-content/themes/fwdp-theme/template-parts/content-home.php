@@ -86,12 +86,12 @@
         </div>
         <h1 class="text-3xl font-extrabold text-gray-900 text-center mt-10 mb-10">Core Values</h1>
         <div class="mx-auto md:max-w-screen-md lg:max-w-screen-lg px-4 sm:px-6 lg:px-8">
-            <ul class="text-center">
-                <li>Safety: A respectful, secure space for learning and collaboration.</li>
-                <li>Diversity & Inclusion: Welcoming all backgrounds and experiences.</li>
-                <li>Service: Giving back to uplift peers and the community.</li>
-                <li>Teamwork: Building stronger solutions through collaboration.</li>
-                <li>Fairness: Equal opportunities for every developer.</li>
+            <ul class="text-left">
+                <li><b>Safety:</b> A respectful, secure space for learning and collaboration.</li>
+                <li><b>Diversity & Inclusion:</b> Welcoming all backgrounds and experiences.</li>
+                <li><b>Service:</b> Giving back to uplift peers and the community.</li>
+                <li><b>Teamwork:</b> Building stronger solutions through collaboration.</li>
+                <li><b>Fairness:</b> Equal opportunities for every developer.</li>
             </ul>
         </div>
     </div>
