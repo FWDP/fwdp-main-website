@@ -30,8 +30,7 @@ if ($query->have_posts()) :
 
   $index = 0;
 ?>
-
-<section class="bg-gray-50 dark:bg-gray-900 py-12">
+<section class="bg-gray-50 py-12">
   <div class="max-w-screen-xl mx-auto px-4">
     <h1 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-10">
       <?= esc_html($title); ?>

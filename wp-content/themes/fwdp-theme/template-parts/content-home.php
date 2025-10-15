@@ -48,7 +48,7 @@
     </div>
 </section>
 <?php get_template_part('template-parts/service-grid', null, ['count' => 3, 'title' => 'What We Do', 'show_button' => false]); ?>
-<section class="bg-gray-100 py-12">
+<section class="bg-white py-12">
     <div class="mx-auto md:max-w-screen-md lg:max-w-screen-lg px-4 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-extrabold text-gray-900 text-center">Our Culture</h1>
         <div class="mt-12 flex grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 text-center">
@@ -93,6 +93,26 @@
                 <li><b>Teamwork:</b> Building stronger solutions through collaboration.</li>
                 <li><b>Fairness:</b> Equal opportunities for every developer.</li>
             </ul>
+        </div>
+    </div>
+</section>
+<section class="bg-gray-50">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+        <blockquote><h2 class="mb-10 text-4xl font-extrabold tracking-tight leading-none text-gray-900">Our Story</h2></blockquote>
+        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 "><b>Filipino Web Development Peers (FWDP)</b> began with a vision to create a safe, collaborative space where Filipino developers could grow together. What started as a small peer-driven group has evolved into a nationwide network of learners, professionals, and industry mentors. Through mentorship, workshops, and real-world projects, FWDP empowers Filipino developers to learn, innovate, and connect with global opportunities</p>
+        <h2 class="text-3xl font-extrabold text-gray-900 text-center mt-10 mb-10">Key Highlights</h2>
+        <div class="mx-auto md:max-w-screen-md lg:max-w-screen-lg px-4 sm:px-6 lg:px-8 mb-8">
+            <ul class="text-left" style="list-style-type:disc;">
+                <li>Founded by and for Filipino developers</li>
+                <li>Focused on skill-building, mentorship, and networking</li>
+                <li>Promotes an inclusive and supportive learning culture</li>
+            </ul>
+        </div>
+        <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+            <a href="#" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 ">
+                Join the Community
+                <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </a>
         </div>
     </div>
 </section>
