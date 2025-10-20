@@ -29,8 +29,11 @@ class Theme {
      */
     protected $component_classes = [
         Setup::class,
+        Pages::class,
+        Enqueue::class,
         Navigation::class,
         Customizer::class,
+        PostTypes::class
     ];
 
     /**

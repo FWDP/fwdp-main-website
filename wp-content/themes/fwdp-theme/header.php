@@ -11,7 +11,7 @@ $primary_color = TemplateTags::get_primary_color();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php wp_head(); ?>
 </head>
-<body <?php body_class('antialiased bg-gray-50 dark:bg-gray-900 transition-colors duration-300'); ?>>
+<body>
 
 <header 
     class="w-full shadow-md sticky top-0 z-50 transition-colors duration-300"
@@ -50,4 +50,4 @@ $primary_color = TemplateTags::get_primary_color();
     </nav>
 </header>
 
-<main class="container mx-auto px-4 py-8">
+<main class="w-full">

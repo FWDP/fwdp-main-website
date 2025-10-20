@@ -10,17 +10,17 @@ class PostTypes implements Hookable {
 
     public function register_post_types() {
 
-        // Example: Projects
-        register_post_type('project', [
+        // Services
+        register_post_type('services', [
             'labels' => [
-                'name'          => __('Projects', 'fwdp'),
-                'singular_name' => __('Project', 'fwdp'),
+                'name'          => __('Services', 'fwdp'),
+                'singular_name' => __('Service', 'fwdp'),
             ],
             'public'      => true,
             'has_archive' => true,
-            'menu_icon'   => 'dashicons-portfolio',
+            'menu_icon'   => 'dashicons-hammer',
             'supports'    => ['title', 'editor', 'thumbnail', 'excerpt'],
-            'rewrite'     => ['slug' => 'projects'],
+            'rewrite'     => ['slug' => 'services'],
             'show_in_rest'=> true,
         ]);
     }
